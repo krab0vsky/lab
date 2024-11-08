@@ -1,7 +1,7 @@
 def mat_cr():
     size = 0
     mat = []
-    with open('mat.txt', 'r') as f:
+    with open("matrix.txt", 'r') as f:
         for line in f:
             row = list(map(int, line.split(',')))
             mat.append(row)
