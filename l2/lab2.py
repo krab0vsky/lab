@@ -28,7 +28,7 @@ def create_submatrixes_gen(s,num):
     return np.full((s,s),num)
 
 def create_submatrixes_txt():
-    with open('Lab-2\matrixl2.txt', 'r') as file:
+    with open('text.txt', 'r') as file:
         lines = file.readlines()
         
     matrices = []
