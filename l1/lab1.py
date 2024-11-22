@@ -8,7 +8,7 @@
 def mat_cr():
     size = 0
     mat = []
-    with open('mat.txt', 'r') as f:
+    with open("matrix.txt", 'r') as f:
         for line in f:
             row = list(map(int, line.split(',')))
             mat.append(row)
@@ -24,20 +24,20 @@ def mat_part(mat, size, ar,k = 0, ce=False):
                 area.append(mat[i][j])
                 if ce:
                     if ar == 1 and j % 2 == 0 and mat[i][j] == k: isK += 1
-                    if ar == 4 and j % 2 != 0: pros *= mat[i][j]       
+                    if ar == 4 and j % 2 != 0: pros *= mat[i][j]
     if ce:  return area, isK if ar == 1 else pros
     return area
 def in_area(i, j, size, ar):
-    if ar == 1: return i > j and i + j < size - 1  
+    if ar == 1: return i > j and i + j < size - 1
     elif ar == 2:  return i < j and i + j < size - 1
-    elif ar == 3:   return i < j and i + j > size - 1 
+    elif ar == 3:   return i < j and i + j > size - 1
     elif ar == 4:   return i > j and i + j > size - 1
     return False
 def f_create(mat, size, result,part1, part2, part3 ):
-    if result > 0:  
+    if result > 0:
         replacer(mat, size, part3, 2)
         replacer(mat, size, part2, 3)
-    else:  
+    else:
         part1 = list(reversed(part1))
         part2 = sorted(part2)
         replacer(mat, size, part2, 1)
