@@ -8,7 +8,7 @@
 def mat_cr():
     size = 0
     mat = []
-    with open("matrix.txt", 'r') as f:
+    with open('mat.txt', 'r') as f:
         for line in f:
             row = list(map(int, line.split(',')))
             mat.append(row)
@@ -18,28 +18,20 @@ def mat_part(mat, size, ar,k = 0, ce=False):
     area = []
     pros = 1
     isK = 0
-
     for i in range(size):
         for j in range(size):
             if in_area(i, j, size, ar):
                 area.append(mat[i][j])
                 if ce:
-                    if ar == 1 and j % 2 == 0 and mat[i][j] == k:
-                        isK += 1
-                    if ar == 4 and j % 2 != 0:
-                        pros *= mat[i][j]
-    if ce:
-        return area, isK if ar == 1 else pros
+                    if ar == 1 and j % 2 == 0 and mat[i][j] == k: isK += 1
+                    if ar == 4 and j % 2 != 0: pros *= mat[i][j]       
+    if ce:  return area, isK if ar == 1 else pros
     return area
 def in_area(i, j, size, ar):
-    if ar == 1:
-        return i > j and i + j < size - 1
-    elif ar == 2: 
-        return i < j and i + j < size - 1
-    elif ar == 3:  
-        return i < j and i + j > size - 1
-    elif ar == 4:  
-        return i > j and i + j > size - 1
+    if ar == 1: return i > j and i + j < size - 1  
+    elif ar == 2:  return i < j and i + j < size - 1
+    elif ar == 3:   return i < j and i + j > size - 1 
+    elif ar == 4:   return i > j and i + j > size - 1
     return False
 def f_create(mat, size, result,part1, part2, part3 ):
     if result > 0:  
@@ -73,8 +65,7 @@ def ex(a,f,k,size):
     answer = [[kmultaf[i][j] * ft[i][j] for i in range(size)] for j in range(size)]
     print_mat(answer,size)
 def print_mat(m,s):
-    for i in range(s):
-        print(m[i])
+    for i in range(s): print(m[i])
 k = int(input("Введите коэффицент: "))
 a,size = mat_cr()
 print("Матрица А: ")
