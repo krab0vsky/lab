@@ -17,35 +17,32 @@ inter = {
     '7': 'семь',
 }
 
-
-def transform_number(match):
-    num = match.group(0)
-    dc = {}
-    trans = []
-    ch = 0
+def transform_number(num):
+    is_negative = num[0] == '-'
+    if is_negative:
+        num = num[1:]
+    digit_count = {}
     for d in num:
-        if d in dc and d in inter:
-            trans.append(inter[d])
-            ch+=1
+        digit_count[d] = digit_count.get(d, 0) + 1
+    trans = []
+    for d in num:
+        if digit_count.get(d, 0) > 1 and d in inter:
+            trans.append(inter[d])  
         else:
-            trans.append(d)
-            dc[d] = 1
-    if ch > 0:
-        return ''.join(trans)
-    else: return ''.join('')
-
+            trans.append(d)  
+    result = ''.join(trans)
+    if is_negative:
+        result = '-' + result 
+    return result
 def proc(path):
-    octmin = r'\b3[0-7]+\b'
+    octmin = r'(?:^|\s)-?3[0-7]+(?=\s|$)'
     res = []
     with open(path, 'r', encoding='utf-8') as file:
         for line in file:
-            
-            for m in re.finditer(octmin,line):
-                transformed_line = re.sub(octmin, transform_number, m[0])
-                res.append(transformed_line)
-
-
+            valid_matches = re.findall(octmin, line)
+            transformed_matches = [transform_number(match) for match in valid_matches]
+            if transformed_matches:
+                res.append(' '.join(transformed_matches))
     for r in res:
-        print(r,end=" ")
-
+        print(r.strip())
 proc('inp.txt')
