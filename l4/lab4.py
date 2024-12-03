@@ -8,6 +8,7 @@
 Натуральные нечетные восьмеричные числа, начинающиеся с 3.
 Для каждого числа повторяющиеся цифры вывести прописью.'''
 
+
 import re
 
 inter = {
@@ -17,32 +18,32 @@ inter = {
     '7': 'семь',
 }
 
+def valid(word):
+    return bool(re.match(r'^-?[3][0-7]*$', word)) and int(word.lstrip('-'), 8) % 2 == 1
+
 def transform_number(num):
-    is_negative = num[0] == '-'
-    if is_negative:
-        num = num[1:]
-    digit_count = {}
-    for d in num:
-        digit_count[d] = digit_count.get(d, 0) + 1
+    dc = {}
     trans = []
+    is_negative = num[0] == '-' 
+    if is_negative:
+        num = num[1:]  
     for d in num:
-        if digit_count.get(d, 0) > 1 and d in inter:
-            trans.append(inter[d])  
+        if d in dc and d in inter:
+            trans.append(inter[d])
         else:
-            trans.append(d)  
+            trans.append(d)
+            dc[d] = 1
     result = ''.join(trans)
     if is_negative:
-        result = '-' + result 
-    return result
+        result = '-' + result  
+    return result 
+
 def proc(path):
-    octmin = r'(?:^|\s)-?3[0-7]+(?=\s|$)'
-    res = []
     with open(path, 'r', encoding='utf-8') as file:
         for line in file:
-            valid_matches = re.findall(octmin, line)
-            transformed_matches = [transform_number(match) for match in valid_matches]
-            if transformed_matches:
-                res.append(' '.join(transformed_matches))
-    for r in res:
-        print(r.strip())
-proc('inp.txt')
+            words = re.findall(r'-?[0-7]+\b', line)
+            result = ' '.join(transform_number(word) for word in words if valid(word))
+            if result:
+                print(result.strip()) 
+
+proc('l4/inp.txt')
