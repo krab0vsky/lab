@@ -28,4 +28,4 @@ def proc(path):
             result = ' '.join(transform_number(word) for word in words)
             if result:
                 print(result.strip())
-proc('inp.txt')
+proc('text.txt')
