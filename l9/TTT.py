@@ -101,23 +101,31 @@ def game_over():
         root.destroy()
 
 def get_player_choice():
-    global player_choice, current_player
+    global player_choice, current_player, bot_player
     root.withdraw()
-
     player_choice = simpledialog.askstring("Выбор игрока", "Выберите, чем хотите играть (X или O):", initialvalue="X").upper()
     if player_choice not in ("X", "O"):
         messagebox.showerror("Ошибка", "Неверный ввод. Пожалуйста, введите X или O.")
         get_player_choice()
+
+        # Установка значений для игрока и бота
+    if player_choice == "O":
+        bot_player = "X"
+    else:
+        bot_player = "O"
+
+    current_player = player_choice
     root.deiconify()
     start_new_game()
+
 
 def start_new_game():
     global current_player
     for button in buttons:
         button['text'] = ""
         button.config(state=tk.NORMAL)
-    current_player = player_choice
     label.config(text=f"Ход игрока: {current_player}")
+
 
 def center_window(window):
     window.update_idletasks()
@@ -129,19 +137,19 @@ def center_window(window):
     y = (screen_height - height) // 2
     window.geometry(f"{width}x{height}+{x}+{y}")
 
-# Создание главного окна
 root = tk.Tk()
 root.title("Крестики-нолики")
 root.configure(bg="lightblue") 
 buttons = []
-bot_player = "O"
+bot_player = "X"  
 
-label = tk.Label(root, text=f"Ход игрока: ", font=("Helvetica", 16), bg="lightblue")  
+label = tk.Label(root, text=f"Ход игрока: ", font=("Helvetica", 16), bg="lightblue") 
 label.grid(row=0, column=0, columnspan=3, pady=10)
 
 for i in range(3):
     for j in range(3):
-        button = tk.Button(root, text="", width=10, height=5, font=("Helvetica", 32), command=lambda row=i, col=j: button_click(row, col), bg="white")  
+        button = tk.Button(root, text="", width=10, height=5, font=("Helvetica", 32),
+                           command=lambda row=i, col=j: button_click(row, col), bg="white")  
         button.grid(row=i + 1, column=j, padx=5, pady=5)
         buttons.append(button)
 
