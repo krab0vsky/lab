@@ -94,7 +94,7 @@ def bot_move():
             label.config(text=f"Ход игрока: {current_player}")
 
 def game_over():
-    result = messagebox.askyesno("Игра окончена", "Хотите сыграть ещё раз?")
+    result = messagebox.askyesno("Игра окончена", "Сыграем ещё раз?")
     if result:
         get_player_choice()
     else:
