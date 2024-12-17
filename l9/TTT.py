@@ -31,7 +31,7 @@ def button_click(row, col):
             disable_buttons()
             game_over()
         else:
-            current_player = bot_player  # Теперь бот делает ход сразу
+            current_player = bot_player  
             label.config(text=f"Ход игрока: {current_player}")
             bot_move()  # Ход бота
 
@@ -132,19 +132,19 @@ def center_window(window):
 # Создание главного окна
 root = tk.Tk()
 root.title("Крестики-нолики")
-root.configure(bg="lightblue")  # Установка фона для окна
+root.configure(bg="lightblue") 
 buttons = []
 bot_player = "O"
 
-label = tk.Label(root, text=f"Ход игрока: ", font=("Helvetica", 16), bg="lightblue")  # Установка фона для метки
+label = tk.Label(root, text=f"Ход игрока: ", font=("Helvetica", 16), bg="lightblue")  
 label.grid(row=0, column=0, columnspan=3, pady=10)
 
 for i in range(3):
     for j in range(3):
-        button = tk.Button(root, text="", width=10, height=5, font=("Helvetica", 32), command=lambda row=i, col=j: button_click(row, col), bg="white")  # Установка фона для кнопок
+        button = tk.Button(root, text="", width=10, height=5, font=("Helvetica", 32), command=lambda row=i, col=j: button_click(row, col), bg="white")  
         button.grid(row=i + 1, column=j, padx=5, pady=5)
         buttons.append(button)
 
 get_player_choice()
-center_window(root)  # Центрирование окна
+center_window(root)  
 root.mainloop()
