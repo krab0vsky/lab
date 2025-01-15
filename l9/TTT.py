@@ -31,7 +31,7 @@ def button_click(row, col):
             disable_buttons()
             game_over()
         else:
-            current_player = bot_player  
+            current_player = bot_player
             label.config(text=f"Ход игрока: {current_player}")
             bot_move()  # Ход бота
 
@@ -103,7 +103,11 @@ def game_over():
 def get_player_choice():
     global player_choice, current_player, bot_player
     root.withdraw()
-    player_choice = simpledialog.askstring("Выбор игрока", "Выберите, чем хотите играть (X или O):", initialvalue="X").upper()
+    player_choice = simpledialog.askstring("Выбор игрока", "Выберите, чем хотите играть (X или O):", initialvalue="X").strip()
+
+    if player_choice:
+        player_choice = player_choice.upper()
+
     if player_choice not in ("X", "O"):
         messagebox.showerror("Ошибка", "Неверный ввод. Пожалуйста, введите X или O.")
         get_player_choice()
@@ -139,20 +143,20 @@ def center_window(window):
 
 root = tk.Tk()
 root.title("Крестики-нолики")
-root.configure(bg="lightblue") 
+root.configure(bg="lightblue")
 buttons = []
-bot_player = "X"  
+bot_player = "X"
 
-label = tk.Label(root, text=f"Ход игрока: ", font=("Helvetica", 16), bg="lightblue") 
+label = tk.Label(root, text=f"Ход игрока: ", font=("Helvetica", 16), bg="lightblue")
 label.grid(row=0, column=0, columnspan=3, pady=10)
 
 for i in range(3):
     for j in range(3):
         button = tk.Button(root, text="", width=10, height=5, font=("Helvetica", 32),
-                           command=lambda row=i, col=j: button_click(row, col), bg="white")  
+                           command=lambda row=i, col=j: button_click(row, col), bg="white")
         button.grid(row=i + 1, column=j, padx=5, pady=5)
         buttons.append(button)
 
 get_player_choice()
-center_window(root)  
+center_window(root)
 root.mainloop()
